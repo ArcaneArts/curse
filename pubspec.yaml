@@ -1,6 +1,6 @@
 name: curse
 description: Easy reflection!
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/ArcaneArts/curse
 environment:
   sdk: ^3.4.0

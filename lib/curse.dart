@@ -148,6 +148,8 @@ class CursedDeclaration {
   bool get isPrivate => $declaration.isPrivate;
 
   bool get isTopLevel => $declaration.isTopLevel;
+
+  List<InstanceMirror> get $metadata => $declaration.metadata;
 }
 
 class CursedField extends CursedDeclaration {
@@ -160,6 +162,13 @@ class CursedField extends CursedDeclaration {
         super(clazz.$class.declarations[name] as DeclarationMirror);
 
   CursedField withInstance(Object inst) => CursedField(inst.cursed, name);
+
+  T? getAnnotation<T>() => $metadata
+      .where((m) => m.reflectee is T)
+      .map((m) => m.reflectee as T)
+      .firstOrNull;
+
+  bool hasAnnotation<T>() => $metadata.any((m) => m.reflectee is T);
 
   bool get isConst => $field.isConst;
 
@@ -203,6 +212,13 @@ class CursedParameter extends CursedDeclaration {
   CursedParameter withInstance(Object inst) =>
       CursedParameter(method.withInstance(inst.cursed), name, $parameter);
 
+  T? getAnnotation<T>() => $metadata
+      .where((m) => m.reflectee is T)
+      .map((m) => m.reflectee as T)
+      .firstOrNull;
+
+  bool hasAnnotation<T>() => $metadata.any((m) => m.reflectee is T);
+
   bool get isOptional => $parameter.isOptional;
 
   bool get isNamed => $parameter.isNamed;
@@ -229,6 +245,13 @@ class CursedMethod extends CursedDeclaration {
         super(clazz.$class.declarations[name] as DeclarationMirror);
 
   CursedMethod withInstance(Object inst) => CursedMethod(inst.cursed, name);
+
+  T? getAnnotation<T>() => $metadata
+      .where((m) => m.reflectee is T)
+      .map((m) => m.reflectee as T)
+      .firstOrNull;
+
+  bool hasAnnotation<T>() => $metadata.any((m) => m.reflectee is T);
 
   bool get isAbstract => $method.isAbstract;
 
@@ -323,6 +346,13 @@ class CursedClass extends CursedDeclaration {
   bool hasStaticMethod(String name) => $class.declarations.values
       .where((i) => i.simpleName == Symbol(name))
       .any((i) => i is MethodMirror && i.isStatic);
+
+  T? getAnnotation<T>() => $metadata
+      .where((m) => m.reflectee is T)
+      .map((m) => m.reflectee as T)
+      .firstOrNull;
+
+  bool hasAnnotation<T>() => $metadata.any((m) => m.reflectee is T);
 
   bool get isAbstract => $class.isAbstract;
 
