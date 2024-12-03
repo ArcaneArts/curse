@@ -308,7 +308,7 @@ class CursedMethod extends CursedDeclaration {
     Map<String, dynamic> namedArguments = const {},
   }) =>
       clazz.$class
-          .newInstance(name, positionalArguments,
+          .newInstance($method.constructorName, positionalArguments,
               namedArguments.map((k, v) => MapEntry(Symbol(k), v)))
           .reflectee;
 
